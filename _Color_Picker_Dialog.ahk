@@ -6,44 +6,44 @@
 ; Example
 ; ===============================================================
 
-global cc, defColor
-cc := 0x00FF00 ; green
-defColor := [0xAA0000,0x00AA00,0x0000AA]
+; global cc, defColor
+; cc := 0x00FF00 ; green
+; defColor := [0xAA0000,0x00AA00,0x0000AA]
 
-oGui := Gui("-MinimizeBox -MaximizeBox","Choose Color")
-oGui.OnEvent("close",close_event)
-oGui.OnEvent("escape",close_event)
-oGui.AddButton("w150","Choose Color").OnEvent("click",choose_event)
-oGui.BackColor := cc
-oGui.Show("")
-return
+; oGui := Gui("-MinimizeBox -MaximizeBox","Choose Color")
+; oGui.OnEvent("close",close_event)
+; oGui.OnEvent("escape",close_event)
+; oGui.AddButton("w150","Choose Color").OnEvent("click",choose_event)
+; oGui.BackColor := cc
+; oGui.Show("")
+; return
 
 
-choose_event(ctl,info) {
-    Global cc, defColor
+; choose_event(ctl,info) {
+    ; Global cc, defColor
     
-    hwnd := ctl.gui.hwnd ; grab hwnd
-    cc := "0x" ctl.gui.BackColor ; pre-select color from gui background (optional)
+    ; hwnd := ctl.gui.hwnd ; grab hwnd
+    ; cc := "0x" ctl.gui.BackColor ; pre-select color from gui background (optional)
     
-    cc := ColorSelect(cc,hwnd,&defColor,0) ; specifying start color, parent window, starting custom colors, and basic display
+    ; cc := ColorSelect(cc,hwnd,&defColor,0) ; specifying start color, parent window, starting custom colors, and basic display
     
-    If (cc = -1)
-        return
+    ; If (cc = -1)
+        ; return
     
-    colorList := ""
-    For k, v in defColor ; if user changes Custom Colors, they will be stored in defColor array
-        If v
-            colorList .= "Index: " k " / Color: " Format("0x{:06X}",v) "`r`n"
+    ; colorList := ""
+    ; For k, v in defColor ; if user changes Custom Colors, they will be stored in defColor array
+        ; If v
+            ; colorList .= "Index: " k " / Color: " Format("0x{:06X}",v) "`r`n"
     
-    ctl.gui.BackColor := cc ; set gui background color
+    ; ctl.gui.BackColor := cc ; set gui background color
     
-    If cc
-        msgbox "Output color: " cc "`r`n`r`nCustom colors saved:`r`n`r`n" Trim(colorList,"`r`n")
-}
+    ; If cc
+        ; msgbox "Output color: " cc "`r`n`r`nCustom colors saved:`r`n`r`n" Trim(colorList,"`r`n")
+; }
 
-close_event(guiObj) {
-    ExitApp
-}
+; close_event(guiObj) {
+    ; ExitApp
+; }
 
 ; ===============================================================
 ; END Example
@@ -71,8 +71,8 @@ ColorSelect(Color := 0, hwnd := 0, &custColorObj := "",disp:=false) {
     Loop (16 - custColorObj.Length)
         custColorObj.Push(0) ; fill out custColorObj to 16 values
     
-    CUSTOM := BufferAlloc(16 * 4, 0) ; init custom colors obj
-    CHOOSECOLOR := BufferAlloc((p=4)?36:72,0) ; init dialog
+    CUSTOM := Buffer(16 * 4, 0) ; init custom colors obj
+    CHOOSECOLOR := Buffer((p=4)?36:72,0) ; init dialog
     
     If (IsObject(custColorObj)) {
         Loop 16 {
