@@ -71,8 +71,8 @@ ColorSelect(Color := 0, hwnd := 0, &custColorObj := "",disp:=false) {
     Loop (16 - custColorObj.Length)
         custColorObj.Push(0) ; fill out custColorObj to 16 values
     
-    CUSTOM := BufferAlloc(16 * 4, 0) ; init custom colors obj
-    CHOOSECOLOR := BufferAlloc((p=4)?36:72,0) ; init dialog
+    CUSTOM := Buffer(16 * 4, 0) ; init custom colors obj
+    CHOOSECOLOR := Buffer((p=4)?36:72,0) ; init dialog
     
     If (IsObject(custColorObj)) {
         Loop 16 {
@@ -88,7 +88,7 @@ ColorSelect(Color := 0, hwnd := 0, &custColorObj := "",disp:=false) {
     NumPut "UInt", disp,             CHOOSECOLOR, 5 * p         ; Flags
     
     if !DllCall("comdlg32\ChooseColor", "UPtr", CHOOSECOLOR.ptr, "UInt")
-        return ""
+        return -1
     
     custColorObj := []
     Loop 16 {
