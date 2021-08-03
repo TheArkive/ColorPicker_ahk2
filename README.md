@@ -1,6 +1,9 @@
 # ColorPicker_ahk2
 Win32 Color Picker for AHK v2
 
+Originally posted by maestrith 
+https://autohotkey.com/board/topic/94083-ahk-11-font-and-color-dialogs/
+
 ## ColorSelect()
 ```
 result := ColorSelect(Color := 0, hwnd := 0, &custColorObj := "",disp:=true)
